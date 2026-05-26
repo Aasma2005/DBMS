@@ -1,0 +1,46 @@
+import numpy as np
+# Walsh Codes
+c1 = np.array([1, 1, 1, 1])
+c2 = np.array([1, -1, 1, -1])
+c3 = np.array([1, 1, -1, -1])
+c4 = np.array([1, -1, -1, 1])
+print("Enter the data bits (1 or -1 only)")
+# Input bits
+d1 = int(input("Enter D1: "))
+d2 = int(input("Enter D2: "))
+d3 = int(input("Enter D3: "))
+d4 = int(input("Enter D4: "))
+# Encoding
+r1 = d1 * c1
+r2 = d2 * c2
+r3 = d3 * c3
+r4 = d4 * c4
+# Combined signal
+resultant_channel = r1 + r2 + r3 + r4
+print("\nResultant Channel Signal:")
+print(resultant_channel)
+# Receiver Section
+print("\nStations:")
+print("1 -> C1")
+print("2 -> C2")
+print("3 -> C3")
+print("4 -> C4")
+
+station = int(input("\nEnter the station to listen: "))
+# Selecting spreading code
+if station == 1:
+    code = c1
+elif station == 2:
+    code = c2
+elif station == 3:
+    code = c3
+elif station == 4:
+    code = c4
+else:
+    print("Invalid Station")
+    exit()
+# Decoding
+result = np.sum(resultant_channel * code)
+recovered_bit = int(result / 4)
+print("\nRecovered Bit:", recovered_bit)
+
